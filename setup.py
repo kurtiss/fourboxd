@@ -20,7 +20,9 @@ setup(
     url = 'http://www.github.com/kurtiss/' + MODNAME,
     packages = find_packages('src'),
     package_dir = {'' : 'src'},
-    scripts = [],
+    scripts = [
+        'src/scripts/fourboxdsync'
+    ],
     classifiers = [
         'Intended Audience :: Developers',
         'Operating System :: OS Independent',

@@ -28,6 +28,18 @@ import SocketServer
 from datetime import datetime
 
 
+def sync():
+	import argparse
+	import getpass
+
+	p = argparse.ArgumentParser()
+	args = p.parse_args()
+
+	lb_username = raw_input("Letterboxd Username: ")
+	lb_password = getpass.getpass(prompt = "Letterboxd Password: ")
+	s = login(lb_username, lb_password)
+	s.transfer()
+
 def login(*args, **kwargs):
 	return Session.login(*args, **kwargs)
 
