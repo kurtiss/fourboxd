@@ -1,0 +1,9 @@
+Unidecode==0.04.17
+beautifulsoup4==4.3.2
+fourboxd==2015.04.17
+foursquare==2015.02.02
+more-itertools==2.2
+python-slugify==1.1.2
+requests==2.6.0
+six==1.9.0
+wsgiref==0.1.2
