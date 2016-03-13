@@ -151,7 +151,7 @@ class LetterboxdSession(object):
 		else:
 			date_watched = None
 
-		rating = int(s.find("meta", itemprop = "rating")["content"])
+		rating = int(s.find("meta", itemprop = "ratingValue")["content"])
 		description = getattr(s.find("div", itemprop = "description"), "content", None)
 		tag_links = s.find("ul", class_ = "tags")
 		tag_links = tag_links.find_all("a") if tag_links else []
@@ -180,7 +180,7 @@ class LetterboxdSession(object):
 		try:
 			rating = int(rating)
 		except TypeError:
-			rating = ""
+			rating = "0"
 		else:
 			rating = str(rating)
 
@@ -190,6 +190,10 @@ class LetterboxdSession(object):
 			date_watched = ""
 
 		tag = [] if tags is None else tags
+		if len(tag) == 1:
+			sde_tags = tag[0]
+		else:
+			sde_tags = ""
 		liked = 1 if liked else 0
 		contains_spoilers = "true" if contains_spoilers else "false"
 
@@ -201,7 +205,7 @@ class LetterboxdSession(object):
 			rewatch = rewatch,
 			viewingDateStr =date_watched,
 			review = review,
-			tags = "",
+			tags = sde_tags,
 			tag = tag,
 			liked = liked,
 			containsSpoilers = contains_spoilers,
@@ -209,5 +213,5 @@ class LetterboxdSession(object):
 			shareOnFacebook = share_on_facebook
 		))
 
-		j = json.loads(r.text)
-		return j["viewingId"]
+		r.raise_for_status()
+		return r.json()["viewingId"]
